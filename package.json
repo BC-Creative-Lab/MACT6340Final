@@ -1,0 +1,24 @@
+{
+  "name": "mact6340final",
+  "version": "1.0.0",
+  "description": "A Personal Portfolio",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BC-Creative-Lab/MACT6340Final.git"
+  },
+  "author": "Tracy Hiner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BC-Creative-Lab/MACT6340Final/issues"
+  },
+  "homepage": "https://github.com/BC-Creative-Lab/MACT6340Final#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  }
+}
