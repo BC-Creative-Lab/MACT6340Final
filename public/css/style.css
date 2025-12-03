@@ -4,3 +4,41 @@ html {
 *, *:before, *:after {
   box-sizing: inherit;
 }
+
+body {
+  background-color: RGB(00, 0, 29);
+  font-family: "Major Mono Display";
+  color: RGB(205,95,250);
+}
+
+ .btn-primary {
+  background-color: rgb(205, 95, 250) !important;
+  border-color: rgb(205, 95, 250) !important;
+  transition: background-color 0.3s ease; /* smooth fade */
+}
+
+.btn-primary:hover {
+  background-color: rgba(205, 95, 250, 0.7) !important; /* faded version */
+  border-color: rgba(205, 95, 250, 0.7) !important;
+}
+
+/* Outline button base */
+.btn-outline-primary {
+  color: rgb(205, 95, 250) !important;       /* text color */
+  border-color: rgb(205, 95, 250) !important; /* border color */
+  transition: all 0.3s ease;                 /* smooth hover */
+}
+
+/* Hover effect */
+.btn-outline-primary:hover {
+  background-color: rgba(205, 95, 250) !important; /* faded fill */
+  border-color: rgba(205, 95, 250) !important;
+  color: #fff !important; /* text turns white for contrast */
+}
+
+/* Active nav item (the page you're on) */
+.nav-pills .nav-link.active {
+  background-color: rgb(205, 95, 250) !important; /* custom purple */
+  border-color: rgb(205, 95, 250) !important;     /* match border */
+  color: #fff !important;                         /* white text for contrast */
+}
