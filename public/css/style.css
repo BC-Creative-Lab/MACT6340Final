@@ -1,15 +1,20 @@
-html {
-  box-sizing: border-box;
+html  {
+    box-sizing: border-box;
 }
-*, *:before, *:after {
-  box-sizing: inherit;
+
+
+*,
+*:before,
+*:after {
+    box-sizing: inherit;
 }
 
 body {
-  background-color: RGB(00, 0, 29);
+  background-color: RGB(20, 1, 20);
   font-family: "Major Mono Display";
   color: RGB(205,95,250);
-}
+
+
 
  .btn-primary {
   background-color: rgb(205, 95, 250) !important;
@@ -41,4 +46,68 @@ body {
   background-color: rgb(205, 95, 250) !important; /* custom purple */
   border-color: rgb(205, 95, 250) !important;     /* match border */
   color: #fff !important;                         /* white text for contrast */
+}
+
+
+  .display-4 {
+      color: RGB(205,95,250);}
+
+    .custom-bottom-border {
+  border-bottom: 2px solid #ffaab8; /* Example: 2px solid magenta border */
+}
+
+  .custom-top-border {
+  border-top: 2px solid #ffaab8; /* Example: 2px solid magenta border */
+  
+}
+
+}
+.nav-link.active {
+    border: 2px solid rgb(255, 0, 150); /* your pink */
+    border-radius: 6px;
+    padding: 4px 10px;
+}
+
+
+/* Full-screen splash background */
+#splash {
+  min-height: 100vh;
+  background-image: url("/public/images/Pleasure\ Med\ Pink\ Party2.webp");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+/* Keep the text block narrow and centered */
+.hero-inner {
+  max-width: 600px;      /* makes it about 1/3 of most screens */
+  margin: 0 auto;        /* centers left-to-right */
+  padding: 0 1rem;       /* gives breathing room on mobile */
+}
+
+/* OPTIONAL: shift slightly lower if you want it visually balanced */
+/* #hero-text {
+  transform: translateY(10%);
+} */
+
+
+
+.text-small {
+  font-size: 85%;
+}
+
+.dropdown-toggle:not(:focus) {
+  outline: 0;
+}
+@media (min-width: 992px) {
+  .rounded-lg-3 { border-radius: .3rem; }
+}
+
+footer i.bi {
+  font-size: 36px;
+  color: #ffaab8;
+}
+
+footer a:hover i {
+  color: rgb(205, 95, 250);
 }

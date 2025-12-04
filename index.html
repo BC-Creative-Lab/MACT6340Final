@@ -9,98 +9,135 @@
     <title>Personal Portfolio</title>
     <meta name="author" content="Tracy Hiner">
     <meta name="description" content="A personal portfolio for an artist.">
- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
     <link rel="stylesheet" href="./public/css/style.css">
 </head>
+
+
 <body>
- <div class="container">
-        <header
-          class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
-        >
-          <a
-            href="/"
-            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-          >
-            <svg class="bi me-2" width="40" height="32" aria-hidden="true">
-              <use xlink:href="#bootstrap"></use>
-            </svg>
-            <span class="fs-4">Simple header</span>
-          </a>
-          <ul class="nav nav-pills">
-            <li class="nav-item">
-              <a href="#" class="nav-link active" aria-current="page">Home</a>
-            </li>
-            <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-          </ul>
+  <header class="sticky-top" style="background-color: RGB(20,1,20);">
+
+ <div class="container-fluid">
+       <div class="d-flex flex-wrap justify-content-center py-3 mb-4 custom-bottom-border">
+            <a href="/"
+                class="d-flex align-items-center mb- mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+               
+                <!-- put the updated crow logo here -->
+                <img src="images/my-logo.png" alt="My Logo" width="40" height="32" class="me-2">
+
+                <span class="fs-3" style="color:RGB(205,95,250)">The Lab</span>
+            </a>
+            
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" aria-current="page">Home</a>
+                </li>
+                <li class="nav-item"><a href="/#featuredInfo" class="nav-link" style="color:RGB(205,95,250)">Featured</a>
+                </li>
+
+                <li class="nav-item"><a href="/#about" class="nav-link" style="color:RGB(205,95,250)">About</a></li>
+                <li class="nav-item"><a href="/projects" class="nav-link"
+                        style="color:RGB(205,95,250)">Projects</a></li>
+                <!-- <li class="nav-item"><a href="/contact" class="nav-link" style="color:RGB(205,95,250)">Contact </a>
+                </li> -->
+                <div>
+          <button id="wallet-connect" type="button" class="btn btn-outline" style="border: 1px solid #ffaab8;color: #ffaab8">Connect
+            Wallet</button>
+        </div>
+            </ul>
+
         </header>
       </div>
-
- <div class="px-4 py-5 my-5 text-center">
-        <img
-          class="d-block mx-auto mb-4"
-          src="../assets/brand/bootstrap-logo.svg"
-          alt=""
-          width="72"
-          height="57"
-        />
-        <h1 class="display-5 fw-bold text-body-emphasis">Centered hero</h1>
-        <div class="col-lg-6 mx-auto">
-          <p class="lead mb-4">
-            Quickly design and customize responsive mobile-first sites with
-            Bootstrap, the world’s most popular front-end open source toolkit,
-            featuring Sass variables and mixins, responsive grid system,
-            extensive prebuilt components, and powerful JavaScript plugins.
-          </p>
-          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-            <button type="button" class="btn btn-primary btn-lg px-4 gap-3">
-              Primary button
-            </button>
-            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
-              Secondary
-            </button>
-          </div>
-        </div>
-      </div>
-
- <div class="b-example-divider"></div>
-    <div class="container">
-      <footer
-        class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top"
-      >
-        <div class="col-md-4 d-flex align-items-center">
-          <a
-            href="/"
-            class="mb-3 me-2 mb-md-0 text-body-secondary text-decoration-none lh-1"
-            aria-label="Bootstrap"
-          >
-            <svg class="bi" width="30" height="24" aria-hidden="true">
-              <use xlink:href="#bootstrap"></use>
-            </svg>
-          </a>
-          <span class="mb-3 mb-md-0 text-body-secondary"
-            >&copy; 2025 Company, Inc</span
-          >
-        </div>
-        <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li class="ms-3">
-            <a class="text-body-secondary" href="#" aria-label="Instagram"
-              ><svg class="bi" width="24" height="24" aria-hidden="true">
-                <use xlink:href="#instagram"></use></svg
-            ></a>
-          </li>
-          <li class="ms-3">
-            <a class="text-body-secondary" href="#" aria-label="Facebook"
-              ><svg class="bi" width="24" height="24">
-                <use xlink:href="#facebook"></use></svg
-            ></a>
-          </li>
-        </ul>
-      </footer>
     </div>
+ <main>
+        <!-- Splash page -->
+       <section id="splash" class="d-flex justify-content-center align-items-center">
+    <div id="hero-text" class="text-center text-black hero-inner">
+        <h1 class="display-1">Black Crow Creative Lab</h1>
+
+        <p class="fs-3 lead mb-4">
+            A private playground for unruly ideas.
+        </p>
+
+        <img
+            src="/public/images/black-crow-logo_crow-only high res.png"
+            alt="Black Crow Creative Lab logo"
+            width="100"
+            height="100"
+            class="d-block mx-auto"
+        />
+    </div>
+</section>
+
+     <!--Featured Project-->
+        <section>
+            <div class="b-example-divider"></div>
+            <div class="container col-xxl-8 px-4 py-5">
+                <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+                    <div class="col-10 col-sm-8 col-lg-6">
+                        <img src="/public/images/particlesystem.webp" class="d-block mx-lg-auto img-fluid" alt="NFT"
+                            width="700" height="500" loading="lazy" />
+                    </div>
+                    <div  id="featuredInfo" class="col-lg-6">
+                        <h1 class="display-5 fw-bold lh-1 mb-3">
+                            Featured Project
+                        </h1>
+                        
+                            <div class="lead m-2" style="color:#ffaab8">
+                  <div>Name: Particle System</div>
+                  <div>Description: Generative Images of a particle system within a sphere</div>
+                  <div>Editions: 64</div>
+                  <div>Price: 2 MATIC</div>
+                  <div>Opens: 1 January 2026</div>
+
+                        <div class="d-grid gap-2 mt-3">
+                            <a href="/project"><button type="button" class="btn btn-primary btn-lg px-4 me-md-2 mb-3">
+                                    view this project
+                                </button>
+
+                                     <a href="/projects"><button type="button" class="btn btn-outline-primary btn-lg px-4">
+                            view all projects
+                        </button>
+                            </a>
+                        </div>
+                    </div>
+
+        </section>
+
+    <div class="container">
+   
+<!-- footer section -->
+<footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 custom-top-border">
+  <div class="col-md-4 d-flex align-items-center">
+
+    <!-- add logo here if wanted -->
+
+    <span class="mb-3 mb-md-0">&copy; 2025 Black Crow Creative Lab</span>
+  </div>
+
+  <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+    <li class="ms-3">
+      <a class="text-body-secondary" href="#">
+        <i class="bi bi-instagram" style="font-size: 32px;"></i>
+      </a>
+    </li>
+    <li class="ms-3">
+      <a class="text-body-secondary" href="#">
+        <i class="bi bi-facebook" style="font-size: 32px;"></i>
+      </a>
+    </li>
+  </ul>
+</footer>
+
+    </div>
+    <script src="app.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
                     integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
                     crossorigin="anonymous"></script>
