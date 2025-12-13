@@ -118,3 +118,19 @@ footer i.bi {
 footer a:hover i {
   color: rgb(205, 95, 250);
 }
+
+.error-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.error-icons img {
+  width: 60px;
+  height: auto;
+  filter: brightness(0) saturate(100%)
+          invert(76%) sepia(23%) saturate(548%)
+          hue-rotate(306deg) brightness(101%) contrast(97%);
+}
+
