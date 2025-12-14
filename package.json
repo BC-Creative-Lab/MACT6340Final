@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/BC-Creative-Lab/MACT6340Final#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
