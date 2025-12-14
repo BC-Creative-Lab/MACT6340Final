@@ -14,25 +14,34 @@ app.set("view engine", "ejs");
 app.use(express.json());
 app.use(express.static("public"));
 
+await db.connect();
 
 
 
 app.get("/", async (req, res, next) => {
-  await db
-    .connect()
-    .then(async () => {
-      // query the databse for project records
-      projects = await db.getAllProjects();
-      console.log(projects);
-      let featuredRand = Math.floor(Math.random() * projects.length);
-      res.render("index", { featuredProject: projects[featuredRand] });
-    })
-    .catch(next);
+  try {
+    const featuredProject = await db.getHomepageFeatured();
+    const homeProjects = await db.getHomepageGallery(3);
+
+    res.render("index", { featuredProject, homeProjects });
+  } catch (err) {
+    next(err);
+  }
 });
 
-app.get("/projects", (req, res) => {
-  res.render("projects", { projectArray: projects });
+app.get("/projects/:slug", async (req, res, next) => {
+  try {
+    const project = await db.getProjectBySlug(req.params.slug);
+    if (!project) return res.status(404).render("404");
+    res.render("project", { project });
+  } catch (err) {
+    next(err);
+  }
 });
+
+
+
+
 
 app.get("/about", (req, res) => {
   res.render("about");

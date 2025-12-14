@@ -25,8 +25,7 @@
 
 <%- include('header'); %>
        
-      </div>
-    </div>
+   
  <main>
         <!-- Splash page -->
        <section id="splash" class="d-flex justify-content-center align-items-center">
@@ -47,40 +46,83 @@
     </div>
 </section>
 
-     <!--Featured Project-->
-        <section>
-            <div class="b-example-divider"></div>
-            <div class="container col-xxl-8 px-4 py-5">
-                <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-                    <div class="col-10 col-sm-8 col-lg-6">
-                        <img src="/images/particlesystem.webp" class="d-block mx-lg-auto img-fluid" alt="NFT"
-                            width="700" height="500" loading="lazy" />
-                    </div>
-                    <div  id="featuredInfo" class="col-lg-6">
-                        <h1 class="display-5 fw-bold lh-1 mb-3">
-                            Featured Project
-                        </h1>
-                        
-                            <div class="lead m-2" style="color:#ffaab8">
-                  <div>Name: Particle System</div>
-                  <div>Description: Generative Images of a particle system within a sphere</div>
-                  <div>Editions: 64</div>
-                  <div>Price: 2 MATIC</div>
-                  <div>Opens: 1 January 2026</div>
+   <!-- Featured Project -->
+<section>
+  <div class="b-example-divider"></div>
 
-                        <div class="d-grid gap-2 mt-3">
-                            <a href="/project"><button type="button" class="btn btn-primary btn-lg px-4 me-md-2 mb-3">
-                                    view this project
-                                </button>
+  <div class="container col-xxl-8 px-4 py-5">
+    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
 
-                                     <a href="/projects"><button type="button" class="btn btn-outline-primary btn-lg px-4">
-                            view all projects
-                        </button>
-                            </a>
-                        </div>
-                    </div>
+      <div class="col-10 col-sm-8 col-lg-6">
+        <img
+          src="<%= featuredProject?.cover_url || '/images/placeholder.webp' %>"
+          class="d-block mx-lg-auto img-fluid"
+          alt="<%= featuredProject?.title || 'Featured project' %>"
+          width="700"
+          height="500"
+          loading="lazy"
+        />
+      </div>
 
-        </section>
+      <div id="featuredInfo" class="col-lg-6">
+        <h1 class="display-5 fw-bold lh-1 mb-3">Featured Project</h1>
+
+        <% if (featuredProject) { %>
+          <div class="lead m-2" style="color:#ffaab8">
+            <div>Name: <%= featuredProject.title %></div>
+            <div>Description: <%= featuredProject.description %></div>
+          </div>
+
+          <div class="d-grid gap-2 mt-3">
+            <a href="/projects/<%= featuredProject.slug %>" class="btn btn-primary btn-lg px-4 me-md-2 mb-3">
+              view this project
+            </a>
+
+            <a href="/projects" class="btn btn-outline-primary btn-lg px-4">
+              view all projects
+            </a>
+          </div>
+        <% } else { %>
+          <p style="color:#ffaab8">No featured project selected yet.</p>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Home Gallery Picks -->
+<section>
+  <div class="container px-4 pb-5">
+    <h2 class="mb-4" style="color:#ffaab8">Project Gallery</h2>
+
+    <div class="row g-4">
+      <% homeProjects.forEach(p => { %>
+        <div class="col-12 col-md-4">
+          <a href="/projects/<%= p.slug %>" class="text-decoration-none">
+            <div class="card h-100">
+              <img
+                src="<%= p.cover_url || '/images/placeholder.webp' %>"
+                class="card-img-top"
+                alt="<%= p.title %>"
+                loading="lazy"
+              />
+              <div class="card-body">
+                <h5 class="card-title"><%= p.title %></h5>
+                <p class="card-text"><%= (p.description || '').slice(0, 120) %>...</p>
+              </div>
+            </div>
+          </a>
+        </div>
+      <% }) %>
+    </div>
+
+    <div class="mt-4">
+      <a href="/projects" class="btn btn-outline-primary">View full gallery</a>
+    </div>
+  </div>
+</section>
+
 
     <div class="container">
    

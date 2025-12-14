@@ -32,11 +32,16 @@
         <div class="row row-cols-1 row-cols-sm-3 row-cols-lg-4 g-3 text-center justify-content-center">
 
 
-          <!-- <% projectArray.forEach((item, index) => {%>
-          <div class="col-10">
-            <%- include('projectCard', {image: item.img_url, name: item.project_name, ident: item.id}); %>
-          </div>
-          <% }); %> -->
+         <% projectArray.forEach((item) => { %>
+  <div class="col-10 col-sm-6 col-lg-3">
+    <%- include('projectCard', {
+      image: item.cover_url,
+      name: item.title,
+      slug: item.slug
+    }); %>
+  </div>
+<% }); %>
+
 
         </div>
       </div>
