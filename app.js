@@ -1,4 +1,10 @@
 import express from "express";
+import * as utils from "./utils/utils.js";
+import * as db from "./utils/database.js";
+import dotenv from "dotenv";
+dotenv.config();
+
+let projects = [];
 
 const app = express();
 const port = 3001;
@@ -9,12 +15,21 @@ app.use(express.static("public"));
 
 
 
-app.get("/", (req, res) => {
-    res.render("index");
+app.get("/", async (req, res, next) => {
+  await db
+    .connect()
+    .then(async () => {
+      // query the databse for project records
+      projects = await db.getAllProjects();
+      console.log(projects);
+      let featuredRand = Math.floor(Math.random() * projects.length);
+      res.render("index", { featuredProject: projects[featuredRand] });
+    })
+    .catch(next);
 });
 
 app.get("/projects", (req, res) => {
-    res.render("projects");
+  res.render("projects", { projectArray: projects });
 });
 
 app.get("/about", (req, res) => {
@@ -33,10 +48,7 @@ app.use((req, res) => {
 // general error handling
 app.use((err, req, res, next) => {
   console.log(err);
-  res.status(500).render("error.ejs", {
-    title: "Server Error (500)",
-    body: "Something went wrong on our end.",
-  });
+  res.status(500).render("404");
 });
 
 

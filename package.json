@@ -20,8 +20,10 @@
   },
   "homepage": "https://github.com/BC-Creative-Lab/MACT6340Final#readme",
   "dependencies": {
+    "dotenv": "^17.2.3",
     "ejs": "^3.1.10",
     "express": "^5.2.1",
+    "mysql2": "^3.15.3",
     "nodemon": "^3.1.11"
   }
 }
