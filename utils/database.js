@@ -133,11 +133,13 @@ export async function getHomepageFeatured() {
       ON m.project_id = p.id AND m.role = 'cover'
     WHERE p.is_published = 1
       AND p.is_featured = 1
-    ORDER BY p.featured_rank ASC, COALESCE(p.created_date, DATE(p.created_at)) DESC
+    ORDER BY RAND()
     LIMIT 1;
   `);
+
   return rows[0] ?? null;
 }
+
 
 export async function getHomepageGallery(limit = 3) {
   const [rows] = await pool.query(

@@ -46,11 +46,23 @@ app.get("/projects/:slug", async (req, res, next) => {
 
     if (!project) return res.status(404).render("404");
 
-    res.render("project", { project });
+    const viewName = project.is_featured ? "project-featured" : "project";
+    res.render(viewName, { project });
   } catch (err) {
     next(err);
   }
 });
+
+app.get("/featured", async (req, res, next) => {
+  try {
+    await db.connect();
+    const featuredArray = await db.getFeaturedProjects(12); 
+    res.render("featured", { featuredArray });
+  } catch (err) {
+    next(err);
+  }
+});
+
 
 app.get("/about", (req, res) => {
   const aboutImages = [

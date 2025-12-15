@@ -1,6 +1,5 @@
-SELECT role, url, position
-FROM project_media
-WHERE project_id = (SELECT id FROM projects WHERE slug='satellite-study')
-ORDER BY position;
+UPDATE projects SET is_featured = 0;
+UPDATE projects SET is_featured = 1, featured_rank = 1
+WHERE slug = 'particle-system';
 
 
