@@ -123,5 +123,55 @@ export async function getProjectBySlug(slug) {
   return project;
 }
 
-console.log("DB SSL enabled:", process.env.MYSQL_SSL);
+export async function getHomepageFeatured() {
+  const [rows] = await pool.query(`
+    SELECT
+      p.id, p.title, p.slug, p.description, p.medium, p.format, p.created_date,
+      m.url AS cover_url
+    FROM projects p
+    LEFT JOIN project_media m
+      ON m.project_id = p.id AND m.role = 'cover'
+    WHERE p.is_published = 1
+      AND p.is_featured = 1
+    ORDER BY p.featured_rank ASC, COALESCE(p.created_date, DATE(p.created_at)) DESC
+    LIMIT 1;
+  `);
+  return rows[0] ?? null;
+}
+
+export async function getHomepageGallery(limit = 3) {
+  const [rows] = await pool.query(
+    `
+    SELECT
+      p.id, p.title, p.slug, p.description, p.medium, p.format, p.created_date,
+      m.url AS cover_url
+    FROM projects p
+    LEFT JOIN project_media m
+      ON m.project_id = p.id AND m.role = 'cover'
+    WHERE p.is_published = 1
+      AND p.show_on_home = 1
+    ORDER BY p.home_rank ASC, COALESCE(p.created_date, DATE(p.created_at)) DESC
+    LIMIT ?;
+    `,
+    [limit]
+  );
+  return rows;
+}
+
+export async function getAllPublishedProjects() {
+  const [rows] = await pool.query(`
+    SELECT
+      p.id, p.title, p.slug, p.medium, p.format, p.created_date,
+      m.url AS cover_url
+    FROM projects p
+    LEFT JOIN project_media m
+      ON m.project_id = p.id AND m.role = 'cover'
+    WHERE p.is_published = 1
+    ORDER BY COALESCE(p.created_date, DATE(p.created_at)) DESC, p.id DESC;
+  `);
+  return rows;
+}
+
+
+
 
