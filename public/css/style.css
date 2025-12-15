@@ -140,3 +140,46 @@ footer a:hover i {
           hue-rotate(306deg) brightness(101%) contrast(97%);
 }
 
+.error-icons img {
+  animation: daisy-float 3.6s ease-in-out infinite;
+  transform-origin: 50% 50%;
+}
+
+/* Stagger the animation */
+.error-icons img:nth-child(1) { animation-delay: 0s; }
+.error-icons img:nth-child(2) { animation-delay: 0.2s; }
+.error-icons img:nth-child(3) { animation-delay: 0.4s; }
+.error-icons img:nth-child(4) { animation-delay: 0.6s; }
+.error-icons img:nth-child(5) { animation-delay: 0.8s; }
+
+@keyframes daisy-float {
+  0%   { transform: translateY(0) rotate(-2deg); }
+  50%  { transform: translateY(-10px) rotate(2deg); }
+  100% { transform: translateY(0) rotate(-2deg); }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .error-icons img {
+    animation: none;
+  }
+}
+
+.error-icons img {
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.error-icons img:hover {
+  animation: daisy-wiggle 0.4s ease-in-out;
+  transform: scale(1.08);
+}
+
+@keyframes daisy-wiggle {
+  0%   { transform: rotate(0deg) scale(1.08); }
+  25%  { transform: rotate(-6deg) scale(1.08); }
+  50%  { transform: rotate(6deg) scale(1.08); }
+  75%  { transform: rotate(-4deg) scale(1.08); }
+  100% { transform: rotate(0deg) scale(1.08); }
+}
+

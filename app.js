@@ -16,25 +16,11 @@ app.use(express.static("public"));
 
 await db.connect();
 
-
-
 app.get("/", async (req, res, next) => {
   try {
-    // TEMPORARY: no real DB logic yet
-    // This lets the splash + page render without crashing
-
-    let featuredProject = null;
-    let homeProjects = [];
-
-    try {
-      await db.connect();
-      const projects = await db.getAllProjects();
-
-      featuredProject = projects[0] ?? null;
-      homeProjects = projects.slice(1, 4);
-    } catch (dbErr) {
-      console.log("DB not ready yet, rendering homepage without projects");
-    }
+    await db.connect();
+    const featuredProject = await db.getHomepageFeatured();
+    const homeProjects = await db.getHomepageGallery(3);
 
     res.render("index", { featuredProject, homeProjects });
   } catch (err) {
@@ -53,11 +39,33 @@ app.get("/projects", async (req, res, next) => {
   }
 });
 
+app.get("/projects/:slug", async (req, res, next) => {
+  try {
+    await db.connect();
+    const project = await db.getProjectBySlug(req.params.slug);
 
+    if (!project) return res.status(404).render("404");
+
+    res.render("project", { project });
+  } catch (err) {
+    next(err);
+  }
+});
 
 app.get("/about", (req, res) => {
-  res.render("about");
+  const aboutImages = [
+    "/images/about/Woman1.jpg",
+    "/images/about/Woman2.jpg",
+    "/images/about/Woman3.jpg",
+    "/images/about/Woman4.jpg",
+  ];
+
+  const randomImage =
+    aboutImages[Math.floor(Math.random() * aboutImages.length)];
+
+  res.render("about", { aboutImage: randomImage });
 });
+
 
 app.get("/contact", (req, res) => {
   res.render("contact");
