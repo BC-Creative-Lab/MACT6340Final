@@ -91,7 +91,7 @@ app.use((req, res) => {
 // general error handling
 app.use((err, req, res, next) => {
   console.log(err);
-  res.status(500).render("404");
+  res.status(500).render("500");
 });
 
 

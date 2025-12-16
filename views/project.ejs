@@ -47,7 +47,10 @@
         </div>
       </div>
 <%
-  const gallery = (project.media || []).filter(m => m.role === 'gallery' && m.media_type === 'image');
+  const gallery = (project.media || []).filter(m =>
+    m.role === 'gallery' &&
+    (m.media_type === 'image' || m.media_type === 'video')
+  );
 %>
 
 <% if (gallery.length) { %>
@@ -55,72 +58,36 @@
     <h2 class="mb-3" style="color:#ffaab8;">Gallery</h2>
 
     <div class="row g-3">
-      <% gallery.forEach((m, i) => { %>
+      <% gallery.forEach((m) => { %>
         <div class="col-12 col-sm-6 col-lg-4">
-          <button
-            type="button"
-            class="btn p-0 border-0 w-100"
-            data-bs-toggle="modal"
-            data-bs-target="#galleryModal"
-            data-index="<%= i %>"
-            aria-label="Open image <%= i + 1 %> in gallery"
-          >
-            <img
-              src="<%= m.url %>"
-              alt="<%= m.alt_text || project.title %>"
-              class="img-fluid shadow"
-              style="border-radius: 12px;"
-              loading="lazy"
-            />
-          </button>
+          <div class="shadow" style="border-radius:12px; overflow:hidden;">
+            <% if (m.media_type === 'image') { %>
+              <img
+                src="<%= m.url %>"
+                alt="<%= m.alt_text || project.title %>"
+                class="img-fluid"
+                loading="lazy"
+              />
+            <% } else if (m.media_type === 'video') { %>
+              <video
+                class="w-100"
+                autoplay
+                muted
+                loop
+                playsinline
+                controls
+              >
+                <source src="<%= m.url %>" type="video/mp4" />
+              </video>
+            <% } %>
+          </div>
         </div>
       <% }); %>
     </div>
   </div>
-
-  <!-- Modal -->
-  <div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
-      <div class="modal-content" style="background: RGB(20, 1, 20); border: 1px solid rgba(255,170,184,0.35);">
-        <div class="modal-header" style="border-bottom: 1px solid rgba(255,170,184,0.25);">
-          <h5 class="modal-title" style="color:#ffaab8;"><%= project.title %> — Gallery</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-
-        <div class="modal-body text-center">
-          <img
-            id="modalImage"
-            src=""
-            alt=""
-            class="img-fluid"
-            style="border-radius: 12px; max-height: 78vh;"
-          />
-          <div id="modalCaption" class="mt-3" style="color:#ffaab8;"></div>
-        </div>
-
-        <div class="modal-footer justify-content-between" style="border-top: 1px solid rgba(255,170,184,0.25);">
-          <button type="button" class="btn btn-outline-primary" id="prevBtn">← Prev</button>
-          <button type="button" class="btn btn-outline-primary" id="nextBtn">Next →</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Make gallery data available to JS -->
-
-<script>
-  window.__GALLERY__ = <%- JSON.stringify(
-    gallery.map(function (m) {
-      return {
-        url: m.url,
-        alt: m.alt_text || project.title
-      };
-    })
-  ) %>;
-</script>
-
 <% } %>
 
+ 
 
 
 

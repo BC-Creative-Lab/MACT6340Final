@@ -1,5 +1,5 @@
-UPDATE projects SET is_featured = 0;
-UPDATE projects SET is_featured = 1, featured_rank = 1
-WHERE slug = 'particle-system';
-
-
+SELECT id, role, media_type, url
+FROM project_media
+WHERE project_id = (
+  SELECT id FROM projects WHERE slug = 'particle-system'
+);
