@@ -11,6 +11,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
   <link rel="stylesheet" href="/css/style.css">
 </head>
 
@@ -46,46 +48,93 @@
           </p>
         </div>
       </div>
-<%
+<!-- <%
   const gallery = (project.media || []).filter(m =>
     m.role === 'gallery' &&
     (m.media_type === 'image' || m.media_type === 'video')
   );
+%> -->
+
+<%
+  const galleryImages = (project.media || []).filter(m => m.role === 'gallery' && m.media_type === 'image');
+  const galleryVideos = (project.media || []).filter(m => m.role === 'gallery' && m.media_type === 'video');
 %>
 
-<% if (gallery.length) { %>
+<% if (galleryImages.length || galleryVideos.length) { %>
   <div class="mt-5">
     <h2 class="mb-3" style="color:#ffaab8;">Gallery</h2>
 
     <div class="row g-3">
-      <% gallery.forEach((m) => { %>
+      <% galleryImages.forEach((m, i) => { %>
+        <div class="col-12 col-sm-6 col-lg-4">
+          <button
+            type="button"
+            class="btn p-0 border-0 w-100"
+            data-bs-toggle="modal"
+            data-bs-target="#galleryModal"
+            data-index="<%= i %>"
+            aria-label="Open image <%= i + 1 %> in gallery"
+            style="border-radius:12px; overflow:hidden;"
+          >
+            <img
+              src="<%= m.url %>"
+              alt="<%= m.alt_text || project.title %>"
+              class="img-fluid shadow"
+              style="border-radius: 12px;"
+              loading="lazy"
+            />
+          </button>
+        </div>
+      <% }); %>
+
+      <% galleryVideos.forEach((m) => { %>
         <div class="col-12 col-sm-6 col-lg-4">
           <div class="shadow" style="border-radius:12px; overflow:hidden;">
-            <% if (m.media_type === 'image') { %>
-              <img
-                src="<%= m.url %>"
-                alt="<%= m.alt_text || project.title %>"
-                class="img-fluid"
-                loading="lazy"
-              />
-            <% } else if (m.media_type === 'video') { %>
-              <video
-                class="w-100"
-                autoplay
-                muted
-                loop
-                playsinline
-                controls
-              >
-                <source src="<%= m.url %>" type="video/mp4" />
-              </video>
-            <% } %>
+            <video class="w-100" autoplay muted loop playsinline controls style="display:block;">
+              <source src="<%= m.url %>" type="video/mp4" />
+            </video>
           </div>
         </div>
       <% }); %>
     </div>
   </div>
 <% } %>
+
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content" style="background: RGB(20, 1, 20); border: 1px solid rgba(255,170,184,0.35);">
+      <div class="modal-header" style="border-bottom: 1px solid rgba(255,170,184,0.25);">
+        <h5 class="modal-title" style="color:#ffaab8;"><%= project.title %> — Gallery</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body text-center">
+        <img
+          id="modalImage"
+          src=""
+          alt=""
+          class="img-fluid"
+          style="border-radius: 12px; max-height: 78vh;"
+        />
+        <div id="modalCaption" class="mt-3" style="color:#ffaab8;"></div>
+      </div>
+
+      <div class="modal-footer justify-content-between" style="border-top: 1px solid rgba(255,170,184,0.25);">
+        <button type="button" class="btn btn-outline-primary" id="prevBtn">← Prev</button>
+        <button type="button" class="btn btn-outline-primary" id="nextBtn">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.__GALLERY__ = <%- JSON.stringify(
+    galleryImages.map(m => ({
+      url: m.url,
+      alt: m.alt_text || project.title
+    }))
+  ) %>;
+</script>
 
  
 
@@ -126,27 +175,23 @@
       caption.textContent = item.alt || "";
     }
 
-    // When any thumbnail is clicked, open at that index
     document.querySelectorAll('[data-bs-target="#galleryModal"][data-index]').forEach(btn => {
       btn.addEventListener("click", () => {
-        const idx = Number(btn.getAttribute("data-index"));
-        showAt(idx);
+        showAt(Number(btn.getAttribute("data-index")));
       });
     });
 
     prevBtn.addEventListener("click", () => showAt(currentIndex - 1));
     nextBtn.addEventListener("click", () => showAt(currentIndex + 1));
 
-    // Keyboard navigation while modal is open
+    modalEl.addEventListener("shown.bs.modal", () => modalEl.focus());
     modalEl.addEventListener("keydown", (e) => {
       if (e.key === "ArrowLeft") showAt(currentIndex - 1);
       if (e.key === "ArrowRight") showAt(currentIndex + 1);
     });
-
-    // Focus modal for keyboard arrows
-    modalEl.addEventListener("shown.bs.modal", () => modalEl.focus());
   })();
 </script>
+
 
 </body>
 </html>

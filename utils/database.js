@@ -33,9 +33,8 @@ export async function connect() {
 }
 
 // 3️⃣ Queries — THIS IS STEP 2
-export async function getNewestProjects(limit = 12) {
-  const [rows] = await pool.query(
-    `
+export async function getAllPublishedProjects() {
+  const [rows] = await pool.query(`
     SELECT
       p.id,
       p.title,
@@ -48,15 +47,11 @@ export async function getNewestProjects(limit = 12) {
     LEFT JOIN project_media m
       ON m.project_id = p.id AND m.role = 'cover'
     WHERE p.is_published = 1
-    ORDER BY
-      COALESCE(p.created_date, DATE(p.created_at)) DESC,
-      p.id DESC
-    LIMIT ?
-    `,
-    [limit]
-  );
+    ORDER BY p.gallery_rank ASC, p.id DESC
+  `);
   return rows;
 }
+
 
 export async function getFeaturedProjects(limit = 3) {
   const [rows] = await pool.query(
@@ -160,19 +155,6 @@ export async function getHomepageGallery(limit = 3) {
   return rows;
 }
 
-export async function getAllPublishedProjects() {
-  const [rows] = await pool.query(`
-    SELECT
-      p.id, p.title, p.slug, p.medium, p.format, p.created_date,
-      m.url AS cover_url
-    FROM projects p
-    LEFT JOIN project_media m
-      ON m.project_id = p.id AND m.role = 'cover'
-    WHERE p.is_published = 1
-    ORDER BY COALESCE(p.created_date, DATE(p.created_at)) DESC, p.id DESC;
-  `);
-  return rows;
-}
 
 
 
